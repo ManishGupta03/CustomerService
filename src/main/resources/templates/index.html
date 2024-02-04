@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+
+        .main{
+            display: flex;
+            width: 90vw;
+            height: 90vh;
+            justify-content: center;
+            align-items: center;
+        }
+        .submit{
+            background-color: blue;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="inner">
+        <h2>Login Page</h2>
+        <input type="text" id="loginId" placeholder="login id"><br><br>
+
+        <input type="password" id="password" placeholder="Password"><br><br>
+        <button class="submit" onclick="login()" type="submit">Submit</button>
+    </div>
+</div>
+
+<script>
+    function login() {
+    const loginId = document.getElementById("loginId").value;
+    const password = document.getElementById("password").value;
+
+    const loginData = {
+    loginId: loginId,
+    password: password
+    };
+
+    fetch("/api/login", {
+    method: "POST",
+    headers: {
+         "Content-Type": "application/json"
+    },
+    body: JSON.stringify(loginData)
+    })
+    .then(response => response.json())
+    .then(data => {
+    console.log("Response:", data);
+    alert(`Response: ${data}`)
+    })
+    .catch(error => {
+    console.error("Error:", error);
+    alert("Error");
+    });
+}
+
+
+
+</script>
+
+</body>
+</html>
